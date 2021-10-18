@@ -6,11 +6,10 @@
     tools:context=".ui.fragments.WeatherFragment">
 
 
-    <TextView
-        android:id="@+id/tv_weather"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWeatherDays"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        android:textSize="50sp" />
+        android:layout_height="match_parent" />
+
 
 </FrameLayout>

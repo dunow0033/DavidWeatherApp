@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.R
 import com.example.weatherapp.adapters.WeatherAdapter
 import com.example.weatherapp.data.remote.WeatherManager
@@ -36,15 +37,18 @@ class WeatherFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        weatherViewModel.weatherData.observe(viewLifecycleOwner, Observer{
-        weatherAdapter.differ.submitList(it.data?.list)
-
+        setupRecyclerView()
+        weatherViewModel.weatherData.observe(viewLifecycleOwner, Observer {
+            weatherAdapter.differ.submitList(it.data?.list)
         })
     }
 
-
+    private fun setupRecyclerView() = binding.rvWeatherDays.apply {
+        weatherAdapter = WeatherAdapter()
+        adapter = weatherAdapter
+        layoutManager = LinearLayoutManager(requireContext())
+    }
 }
+

@@ -33,23 +33,20 @@ class CityFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.nextButton.setOnClickListener {
             val cityName = binding.etCity.text.toString()
-            weatherViewModel.getWeather(cityName,API_KEY)
+            weatherViewModel.getWeather(cityName, API_KEY)
             findNavController().navigate(R.id.weatherFragment)
 
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
 }
