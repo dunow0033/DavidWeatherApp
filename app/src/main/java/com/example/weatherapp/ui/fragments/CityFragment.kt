@@ -21,7 +21,7 @@ class CityFragment : Fragment() {
     private var _binding: FragmentCityBinding? = null
     private val binding get() = _binding!!
 
-    val weatherViewModel: WeatherViewModel by activityViewModels()
+    private lateinit var weatherViewModel: WeatherViewModel// by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +35,11 @@ class CityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        weatherViewModel = ViewModelProvider(
+            this,
+            WeatherViewModelFactory(WeatherRepository(WeatherManager()))
+        ).get(WeatherViewModel::class.java)
 
         binding.nextButton.setOnClickListener {
             val cityName = binding.etCity.text.toString()

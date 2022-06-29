@@ -25,7 +25,7 @@ class WeatherFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var weatherAdapter: WeatherAdapter
 
-    val weatherViewModel: WeatherViewModel by activityViewModels()
+    private lateinit var weatherViewModel: WeatherViewModel //by activityViewModels()
 
 
     override fun onCreateView(
@@ -40,6 +40,12 @@ class WeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+
+        weatherViewModel = ViewModelProvider(
+            this,
+            WeatherViewModelFactory(WeatherRepository(WeatherManager()))
+        ).get(WeatherViewModel::class.java)
+
         weatherViewModel.weatherData.observe(viewLifecycleOwner, Observer {
             weatherAdapter.differ.submitList(it.data?.list)
         })
